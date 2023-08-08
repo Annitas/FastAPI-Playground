@@ -20,7 +20,7 @@ class Base(DeclarativeBase):
 
 class User(SQLAlchemyBaseUserTable[int], Base):
     id: Mapped[int] = mapped_column(
-        Integer, unique=True, nullable=False
+        Integer, primary_key=True, unique=True, nullable=False
     )
     email: Mapped[str] = mapped_column(
         String(length=320), unique=True, index=True, nullable=False
@@ -53,11 +53,6 @@ class User(SQLAlchemyBaseUserTable[int], Base):
 
 engine = create_async_engine(DATABASE_URL)
 async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
-
-#
-# async def create_db_and_tables():
-#     async with engine.begin() as conn:
-#         await conn.run_sync(Base.metadata.create_all)
 
 
 async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
