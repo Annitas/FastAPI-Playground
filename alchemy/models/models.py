@@ -16,8 +16,11 @@ user = Table(
     Column("id", Integer, primary_key=True),
     Column("email", String, nullable=False),
     Column("username", String, nullable=False),
-    Column("password", String, nullable=False),
+    Column("hashed_password", String, nullable=False),
     Column("is_premium_subscribed", Boolean, nullable=False),
     Column("registered_at", TIMESTAMP, default=datetime.utcnow),
-    Column("newsletter_id", Integer, ForeignKey(newsletter.c.id))
+    Column("newsletter_id", Integer, ForeignKey(newsletter.c.id)),
+    Column("is_active", Boolean, nullable=False),
+    Column("is_superuser", Boolean, nullable=False),
+    Column("is_verified", Boolean, nullable=False)
 )
